@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Product getPetById(@PathVariable("id") ObjectId id) {
+    public Product getProductById(@PathVariable("id") ObjectId id) {
         Query query = new Query(Criteria.where("_id").is(id));
         return mongoOperations.findOne(query, Product.class);
     }
@@ -58,7 +58,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Product createPet(@Valid @RequestBody Product product) {
+    public Product createProduct(@Valid @RequestBody Product product) {
         product.set_id(ObjectId.get());
         mongoOperations.save(product);
         return product;
