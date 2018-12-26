@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     @Autowired
-    private ProductRepository repository;
-    
-    @Autowired
     MongoOperations mongoOperations;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -36,22 +33,11 @@ public class ProductController {
         return mongoOperations.findOne(query, Product.class);
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public void modifyPetById(@PathVariable("id") ObjectId id, @Valid @RequestBody Product product) {
-//        product.set_id(id);
-//        mongoOperations.save(product);
-//    }
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Product createPet(@Valid @RequestBody Product product) {
         product.set_id(ObjectId.get());
         mongoOperations.save(product);
         return product;
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deletePet(@PathVariable ObjectId id) {
-        repository.delete(repository.findBy_id(id));
     }
 
 }
